@@ -10,6 +10,10 @@ int main(int argc, char *argv[]) {
 	char B[100];
 	char C[100] = "dsjfiejef";
 	char D[52] = "dsjfiejef";
+	
+	char A1[10] = "chighick";
+	char B2[10] = "ablxck";
+	char C3[10] = "chighick";
 
 	std::cout << "my_strlen = " << my_strlen(A) << std::endl;
 	std::cout << "my_strcpy(B, A) = " << my_strcpy(B, A) << std::endl;
@@ -78,3 +82,62 @@ int my_strcmp(char *strA, char *strB) {
 	}
 	return ret;
 }
+
+#if 1
+int my_strcpy(char *dst, char *src) {
+	int ret = 0;
+	int i = 0;
+	while (1) {
+		if (src[i] == '\0') {
+			break; 
+		}
+		dst[i] = src[i];
+		i++;
+		dst++;
+		src++;
+	}
+	dst[i] = '\0';
+	return ret;
+}
+
+int my_strcmp(char *str1, char *str2) {
+	int ret = 0;
+	int i = 0;
+
+	while (1) {
+		if (str1[i] == '\0' || str2[i] == '\0')  {
+			break; 
+		}
+		if (str1[i] > str2[i]) {
+			ret = 1;
+			break;
+		} else if (str1[i] < str2[i]) {
+			ret = -1;
+			break;
+		} else if (str1[i] == str2[i]) {
+			ret = 0;
+		}
+
+		i++;
+		str1++;
+		str2++;
+	}
+
+	return ret;
+}
+
+int my_strlen(char *str) {
+	int ret = 0;
+	int i = 0;
+
+	while (1) {
+		if (str[i] == '\0') {
+			break;
+		}
+		str++;
+		i++;
+	}
+	ret = i;
+	return ret;
+}
+#endif
