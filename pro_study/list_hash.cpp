@@ -53,8 +53,8 @@ int main(int argc, char *argv[]) {
 	N = 25;
 	init();
 	gen_input();
-
 	print_input();
+	add_all_item();
 
 	return ret;
 }
@@ -118,7 +118,28 @@ int print_head(int idx) {
 	return ret;
 }
 
+int add_all_item() {
+	int ret = 0;
+	for (int i = 0; i < N; i++) {
+		add_item(input[i].val, input[i].name);
+	}
+	return ret;
+}
+
 int add_item(int val, char *str) {
+	int ret = 0;
+	int hash_idx = 0;
+	dat* thead = 0;
+	hash_idx = find_hash(str);
+	thead = phead[hash_idx];
+
+	dat* new_data = my_alloc();
+	list_add(thead, new_data);
+
+	return ret;
+}
+
+int find_hash(char *str) {
 	int ret = 0;
 
 
