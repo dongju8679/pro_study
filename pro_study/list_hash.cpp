@@ -50,7 +50,7 @@ int print_input(void);
 int main(int argc, char *argv[]) {
 	int ret = 0;
 	std::cout << "start list_hash2" << std::endl;
-	N = MAX_N;
+	N = 25;
 	init();
 	gen_input();
 
@@ -62,10 +62,8 @@ int main(int argc, char *argv[]) {
 int print_input(void) {
 	int ret = 0;
 
-	for (int i = 0; i < MAX_N; i++) {
-		std::cout << "i = " << i << std::endl;
-		std::cout << "val = " << input[i].val << std::endl;
-		std::cout << "name = " << input[i].name << std::endl;
+	for (int i = 0; i < N; i++) {
+		std::cout << "i = " << i  << ", val = " << input[i].val << ", name = " << input[i].name << std::endl;
 	}
 
 	return ret;
