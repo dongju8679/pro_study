@@ -191,6 +191,13 @@ int add_item_with_order(order_t dir, int val, char *name) {
 
 dat* find_target_name(char *str) {
 	dat* ret = 0;
+	dat* tmp = 0;
+
+	for (tmp = phead->next; tmp != phead; tmp = tmp->next;) {
+		if (my_strcmp(tmp->name, str) == 0) {
+
+		}
+	}
 
 	return ret;
 }
@@ -214,6 +221,10 @@ int remove_name(char *str) {
 
 int remove_val(int val) {
 	int ret = 0;
+	dat* target = 0;
+	target = find_target_val(val);
+
+	list_del(target);
 
 	return ret;
 }
