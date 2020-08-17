@@ -1,4 +1,7 @@
+project(PRO_STUDY)
 #cmake_minimum_required(VERSION 3.1)
 #add_definitions("-Wall -std=c++14")
 #add_executable(dongju pro_study/main.cpp)
-add_executable(dongju pro_study/list_hash.cpp)
+#add_executable(dongju pro_study/list_hash.cpp)
+#add_executable(dongju pro_study/my_string.cpp)
+add_executable(dongju pro_study/hash_basic.cpp)

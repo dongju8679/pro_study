@@ -7,7 +7,7 @@ int my_strcmp(char* strA, char* strB);
 int main(int argc, char *argv[]) {
 	int ret = 0;
 	char A[100] = "adgasdab";
-	char B[100];
+	char B[100] = "";
 	char C[100] = "dsjfiejef";
 	char D[52] = "dsjfiejef";
 	
@@ -16,8 +16,12 @@ int main(int argc, char *argv[]) {
 	char C3[10] = "chighick";
 
 	std::cout << "my_strlen = " << my_strlen(A) << std::endl;
+	std::cout << "before B = " << B << std::endl;
+	std::cout << "before A = " << A << std::endl;
 	std::cout << "my_strcpy(B, A) = " << my_strcpy(B, A) << std::endl;
-	std::cout << "" << my_strcmp(C, D) << std::endl;
+	std::cout << "after B = " << B << std::endl;
+	std::cout << "after A = " << A << std::endl;
+	std::cout << "my_strcmp(C, D) = " << my_strcmp(C, D) << std::endl;
 	//std::cout << "A = " << A << std::endl;
 	//std::cout << "B = " << B << std::endl;
 	//printf("A = %s\n", A);
@@ -26,6 +30,7 @@ int main(int argc, char *argv[]) {
 	return ret;
 }
 
+#if 0
 int my_strlen(char *str) {
 	int ret = 0;
 	char *ptr = str;
@@ -83,7 +88,7 @@ int my_strcmp(char *strA, char *strB) {
 	return ret;
 }
 
-#if 1
+#else
 int my_strcpy(char *dst, char *src) {
 	int ret = 0;
 	int i = 0;
@@ -93,10 +98,9 @@ int my_strcpy(char *dst, char *src) {
 		}
 		dst[i] = src[i];
 		i++;
-		dst++;
-		src++;
 	}
 	dst[i] = '\0';
+	ret = i;
 	return ret;
 }
 
@@ -108,33 +112,34 @@ int my_strcmp(char *str1, char *str2) {
 		if (str1[i] == '\0' || str2[i] == '\0')  {
 			break; 
 		}
+#if 0
 		if (str1[i] > str2[i]) {
 			ret = 1;
 			break;
 		} else if (str1[i] < str2[i]) {
 			ret = -1;
 			break;
+		}
+#else
+		if (str1[i] != str2[i]) {
+			ret = str1[i] - str2[i];
+			break;
+#endif
 		} else if (str1[i] == str2[i]) {
 			ret = 0;
 		}
-
 		i++;
-		str1++;
-		str2++;
 	}
-
 	return ret;
 }
 
 int my_strlen(char *str) {
 	int ret = 0;
 	int i = 0;
-
 	while (1) {
 		if (str[i] == '\0') {
 			break;
 		}
-		str++;
 		i++;
 	}
 	ret = i;
