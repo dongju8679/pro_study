@@ -193,7 +193,7 @@ dat* find_target_name(char *str) {
 	dat* ret = 0;
 	dat* tmp = 0;
 
-	for (tmp = phead->next; tmp != phead; tmp = tmp->next;) {
+	for (tmp = phead->next; tmp != phead; tmp = tmp->next) {
 		if (my_strcmp(tmp->name, str) == 0) {
 
 		}
