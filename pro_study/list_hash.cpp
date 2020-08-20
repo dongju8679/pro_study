@@ -19,6 +19,7 @@ class dat {
         dat *prev;
         dat *next;
         int idx;
+        int valid;
         int val;
         char name[MAX_STRING];
     private:
@@ -64,6 +65,8 @@ int add_item_with_order(order_t ot, int val, char* name);
 void list_add(dat *head, dat *list);
 void list_del(dat *list);
 unsigned long myhash(const char *str);
+int print_all_head();
+int print_head(int idx);
  
 int main(int argc, char *argv[]) {
     int ret = 0;
@@ -126,12 +129,24 @@ dat *my_alloc(void) {
     std::cout << "alloc count = " << cur << std::endl;
     return ret;
 }
- 
+
+int print_all_head() {
+    int ret = 0;
+    for (int i = 0; i < MAX_NUM_HASH; i++) {
+		dat* tmp = 0;
+        dat* thead = phead[i];
+        for (tmp = thead->next; tmp != head; tmp = tmp->next) {
+            std::cout << "tmp->val = " << tmp->val << std::endl;
+        }
+    }
+    return ret;
+}
+
 int print_head(int idx) {
     int ret = 0;
     dat *tmp = 0;
-    dat *fhead = phead[idx];
-    for (tmp = fhead->next; tmp != fhead; tmp = tmp->next) {
+    dat *thead = phead[idx];
+    for (tmp = thead->next; tmp != thead; tmp = tmp->next) {
         std::cout << "val = " << tmp->val << std::endl;
     }
     return ret;
@@ -160,6 +175,10 @@ int add_item(int val, char *str) {
   thead = phead[hash_idx];
  
   dat* new_data = my_alloc();
+  new_data->val = val;
+  my_strcpy(new_data->name, str);
+  new_data->valid = 1;
+
   list_add(thead, new_data);
  
   return ret;
