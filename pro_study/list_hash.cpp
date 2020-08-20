@@ -62,6 +62,9 @@ int add_item(int val, char *str);
 #else
 int add_item_with_order(order_t ot, int val, char* name);
 #endif
+int del_item_val(int val);
+int del_item_name(char *str);
+
 void list_add(dat *head, dat *list);
 void list_del(dat *list);
 unsigned long myhash(const char *str);
@@ -132,11 +135,12 @@ dat *my_alloc(void) {
 
 int print_all_head() {
     int ret = 0;
+    std::cout << "print_all_head" << std::endl;
     for (int i = 0; i < MAX_NUM_HASH; i++) {
 		dat* tmp = 0;
         dat* thead = phead[i];
-        for (tmp = thead->next; tmp != head; tmp = tmp->next) {
-            std::cout << "tmp->val = " << tmp->val << std::endl;
+        for (tmp = thead->next; tmp != thead; tmp = tmp->next) {
+            std::cout << "i = " << i << ", tmp->val = " << tmp->val << std::endl;
         }
     }
     return ret;
@@ -157,11 +161,14 @@ int add_all_item(void) {
     int ret = 0;
     for (int i = 0; i < N; i++) {
 #ifdef ADD_NO_ORDER
+        std::cout << "add item, i = " << i << std::endl;
       add_item(input[i].val, input[i].name);
 #else
       add_item_with_order(order_t::descending, input[i].val, input[i].name);
 #endif
     }
+
+    print_all_head();
     return ret;
 }
  
@@ -206,6 +213,19 @@ int add_item_with_order(order_t ot, int val, char* name) {
 #endif
 }
 #endif
+
+int del_item_val(int val) {
+    int ret = 0;
+
+    return ret;
+}
+
+int del_item_name(char* str) {
+    int ret = 0;
+
+    return ret;
+}
+
  
 void list_add(dat *head, dat *list) {
   list->next = head->next;
