@@ -46,6 +46,8 @@ int my_strcpy(char *dst, char *src);
 int my_strcmp(char *str1, char *str2);
 int my_strlen(char *str);
 int print_input(void);
+int find_hash(char *str);
+int add_all_item();
 
 int main(int argc, char *argv[]) {
 	int ret = 0;
