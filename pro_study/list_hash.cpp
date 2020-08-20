@@ -55,16 +55,15 @@ int my_strcpy(char *dst, char *src);
 int my_strcmp(char *str1, char *str2);
 int my_strlen(char *str);
 int print_input(void);
+int add_all_item();
 #ifdef ADD_NO_ORDER
-int add_all_item(int val, char *name);
+int add_item(int val, char *str);
 #else
 int add_item_with_order(order_t ot, int val, char* name);
 #endif
-int add_item(int val, char *str);
 void list_add(dat *head, dat *list);
 void list_del(dat *list);
 unsigned long myhash(const char *str);
- 
  
 int main(int argc, char *argv[]) {
     int ret = 0;
