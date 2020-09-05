@@ -75,11 +75,12 @@ int main(int argc, char* argv[]) {
 	int ret = 0;
 	std::cout << "dongju_a01, start list_hash2" << std::endl;
 	N = 25;
+	char str[20] = "peterson";
 	init();
 	gen_input();
 	print_input();
 	add_all_item();
-	add_item(30, "peterson");
+	add_item(30, str);
 
 	return ret;
 }
@@ -98,7 +99,7 @@ int gen_input(void) {
 	int ret = 0;
 	std::cout << "start gen_input" << std::endl;
 	for (int i = 0; i < MAX_N; i++) {
-		input[i].val = rand() % 10;
+		input[i].val = rand() % 20;
 		my_strcpy(input[i].name, input_name[i]);
 	}
 	return ret;
@@ -211,16 +212,19 @@ int add_item_with_order(order_t ot, int val, char* name) {
 }
 #endif
 
-dat* find_location_by_val(int val) {
-	dat *ret = 0;
+int find_location_by_val_remove_it(int val) {
+	int ret = 0;
 	std::cout << "find_location_by_val start" << std::endl;
 	for (int i = 0; i < MAX_NUM_HASH; i++) {
 		dat *tmp = 0;
 		dat *thead = phead[i];
 		for (tmp = thead->next; tmp != thead; tmp->next) {
 			if (val == tmp->val) {
-				ret = tmp;
+				list_del(tmp);
+				tmp->valid = 0;
+				ret++;
 				std::cout << "found location by val = " << tmp->val << ", idx = " << i << std::endl;
+				std::cout << "remove node = " << tmp << ", tmp->name, = " << tmp->name << std::endl;
 			}
 		}
 	}
@@ -230,10 +234,7 @@ dat* find_location_by_val(int val) {
 int del_item_val(int val) {
 	int ret = 0;
 
-	dat* del_list = find_location_by_val(val);
-
-	list_del(del_list);
-	del_list->valid = 0;
+	ret = find_location_by_val_remove_it(val);
 
 	return ret;
 }
