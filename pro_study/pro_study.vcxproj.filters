@@ -57,5 +57,20 @@
     <ClCompile Include="qsort1.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="double_linked_list1.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="play_genre1.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="binarysearch0.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="hash_djb_t0.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="insertion_sort0.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
