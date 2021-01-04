@@ -1,6 +1,6 @@
 #include <iostream>
 
-#define MAX_NUM 10//(1<<20) //30000
+#define MAX_NUM (1<<15) //30000
 
 struct in_t {
 	int idx;
@@ -189,7 +189,9 @@ int make_gen_list(dat_t* arr, int N) {
 	int ret = 0;
 	for (int i = 0; i < N; i++) {
 		dat_t* dat = &arr[i];
+		//std::cout << "dat = " << dat << std::endl;
 		int gen_head_idx = dat->genre;
+		//std::cout << "gen_head_idx = " << gen_head_idx  << ", idx = " << dat->idx << ", playtime = " << dat->playtime << std::endl;		
 		list_add_tail(&gen_head[gen_head_idx], &(dat->gen_list));
 	}
 	return ret;
@@ -201,12 +203,11 @@ int for_each_list_safe(list_head* head, int list_idx) {
 	list_head* n = 0;
 	int cnt = 0;
 	std::cout << "for_each_list_safe, list_idx" << list_idx << std::endl;
-	for (tmp = head->next, n = tmp->next; tmp != head; tmp = n, n = n->next) {
-		dat_t* arr = reinterpret_cast<dat_t*>(tmp - offsetoflist[list_idx]);
+	for (tmp = head->next, n = tmp->next; tmp != head; tmp = n, n = n->next) {		
+		dat_t* arr = reinterpret_cast<dat_t*>((char*)tmp - (char*)offsetoflist[list_idx]);
 		std::cout << "arr[" << cnt << "] = " << arr->idx << "/" << arr->playtime << "/" << arr->genre << std::endl;
 		cnt++;
 	}
-
 	return ret;
 }
 
@@ -230,26 +231,34 @@ int main() {
 	init_data(in, arr, N);
 	end = clock();
 	std::cout << "init_data, elapsed time = " << end - start << std::endl;
-	show_arr(arr, N);
+	//show_arr(arr, N);
 	start = clock();
 	merge_sort_play(arr, 0, N-1);
 	end = clock();
 	std::cout << "merge_sort_play, elapsed time = " << end - start << std::endl;
-	show_arr(arr, N);
+	//show_arr(arr, N);
 
+	start = clock();
 	make_play_list(arr, N);
-	for_each_list_safe(&play_head, play_list_enum);
+	//for_each_list_safe(&play_head, play_list_enum);
+	end = clock();
+	std::cout << "make_play_list, elapsed time = " << end - start << std::endl;
 
 	start = clock();
 	merge_sort_gen(arr, 0, N - 1);
 	end = clock();
 	std::cout << "merge_sort_gen, elapsed time = " << end - start << std::endl;
-	show_arr(arr, N);
+	//show_arr(arr, N);
 
+	start = clock();
 	make_gen_list(arr, N);
+	end = clock();
+	std::cout << "make_gen_list, elapsed time = " << end - start << std::endl;
+#if 0
 	for (int i = 0; i < 6; i++) {
 		for_each_list_safe(&gen_head[i], gen_list_enum);
 	}
+#endif
 
 	return ret;
 }
