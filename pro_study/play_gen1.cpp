@@ -1,6 +1,6 @@
 #include <iostream>
 
-#define MAX_NUM (1<<15) //30000
+#define MAX_NUM 10 //(1<<15) //30000
 
 struct in_t {
 	int idx;
@@ -211,6 +211,55 @@ int for_each_list_safe(list_head* head, int list_idx) {
 	return ret;
 }
 
+int binarytry(int target) {
+	int ret = 0;
+
+	int s = 0;
+	int e = N - 1;
+	int m = 0;
+
+	while (s <= e) {
+		m = (s + e) / 2;		
+		if (target < arr[m].idx) {
+			std::cout << "1m = " << m << std::endl;
+			if (m == 0) return m;
+			if (target > arr[m - 1].idx) return m;
+			e = m - 1;
+		}
+		else if (target > arr[m].idx) {
+			std::cout << "2m = " << m << std::endl;
+			if (m == e) return m + 1;
+			if (target < arr[m + 1].idx) return m + 1;
+			s = m + 1;
+		}
+		else {
+			std::cout << "m = " << m << std::endl;
+			return m;
+		}
+	}
+	return ret;
+}
+
+int update_playtime(int id, int playtime) {
+	int ret = 0;
+	//int pos = binarytry(id);
+	//std::cout << "" << pos << std::endl;
+	list_head* tmp = 0;
+	list_head* n = 0;
+	list_head* head = &play_head;
+	for (tmp = head->next, n = tmp->next; tmp != head; tmp = n, n = n->next) {
+		dat_t* dat = reinterpret_cast<dat_t*>((char*)tmp - (char*)offsetoflist[0]);
+		std::cout << "A, dat->idx = " << dat->idx << std::endl;
+		if (dat->idx == id) {
+			std::cout << "dat->idx = " << dat->idx << std::endl;
+			dat->playtime += playtime;
+			break;
+		}
+	}
+
+	return ret;
+}
+
 int main() {
 	int ret = 0;
 	std::cout << "start play_gen1" << std::endl;
@@ -231,16 +280,16 @@ int main() {
 	init_data(in, arr, N);
 	end = clock();
 	std::cout << "init_data, elapsed time = " << end - start << std::endl;
-	//show_arr(arr, N);
+	show_arr(arr, N);
 	start = clock();
 	merge_sort_play(arr, 0, N-1);
 	end = clock();
 	std::cout << "merge_sort_play, elapsed time = " << end - start << std::endl;
-	//show_arr(arr, N);
+	show_arr(arr, N);
 
 	start = clock();
 	make_play_list(arr, N);
-	//for_each_list_safe(&play_head, play_list_enum);
+	for_each_list_safe(&play_head, play_list_enum);
 	end = clock();
 	std::cout << "make_play_list, elapsed time = " << end - start << std::endl;
 
@@ -248,17 +297,25 @@ int main() {
 	merge_sort_gen(arr, 0, N - 1);
 	end = clock();
 	std::cout << "merge_sort_gen, elapsed time = " << end - start << std::endl;
-	//show_arr(arr, N);
+	show_arr(arr, N);
 
 	start = clock();
 	make_gen_list(arr, N);
 	end = clock();
 	std::cout << "make_gen_list, elapsed time = " << end - start << std::endl;
-#if 0
+#if 1
 	for (int i = 0; i < 6; i++) {
+		std::cout << "gen_head" << i << std::endl;
 		for_each_list_safe(&gen_head[i], gen_list_enum);
 	}
-#endif
+#endif	
+	show_arr(arr, N);
+	std::cout << "before foreachplay_head" << std::endl;
+	for_each_list_safe(&play_head, play_list_enum);
+	std::cout << "before update_playtime" << std::endl;
+	update_playtime(0, 10);
+	std::cout << "after update_playtime" << std::endl;
+	show_arr(arr, N);
 
 	return ret;
 }
