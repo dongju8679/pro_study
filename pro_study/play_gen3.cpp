@@ -1,12 +1,6 @@
 #include <iostream>
 
-#define MAX_NUM (1<<15) //30000
-
-struct in_t {
-	int idx;
-	int playtime;
-	int genre;
-}in[MAX_NUM];
+#define MAX_NUM (1<<3) //30000
 
 int N;
 
@@ -16,12 +10,16 @@ struct list_head {
 }play_head, gen_head[6];
 
 struct dat_t {
-	list_head play_list;
-	list_head gen_list;
 	int idx;
 	int playtime;
 	int genre;
-}arr[MAX_NUM], tmp[MAX_NUM];
+}in[MAX_NUM], arr[MAX_NUM], tmp[MAX_NUM];
+
+struct list_t {
+	list_head play_list;
+	list_head gen_list;
+	dat_t* dat;
+}list[MAX_NUM];
 
 enum {
 	play_list_enum = 0,
@@ -29,7 +27,7 @@ enum {
 	max_num_list_enum = 2
 };
 
-int offsetoflist[max_num_list_enum] = {0, sizeof(list_head)};
+int offsetoflist[max_num_list_enum] = { 0, sizeof(list_head) };
 
 #if 0
 int alloc_cur;
@@ -70,18 +68,20 @@ int gen_input(int N) {
 	for (int i = 0; i < N; i++) {
 		in[i].idx = i;
 		in[i].playtime = rand() % 30;
-		in[i].genre = rand() % 6;
-		//std::cout << "in[" << i << "] = " << in[i].idx << "/" << in[i].playtime << "/" << in[i].genre << std::endl;
+		in[i].genre = rand() % 6;		
 	}
 	return ret;
 }
 
-int init_data(in_t* in, dat_t* arr, int N) {
+int init_data(dat_t* in, dat_t* arr, int N) {
 	int ret = 0;
+	list_t* list_tmp = 0;
 	for (int i = 0; i < N; i++) {
-		arr[i].idx = in[i].idx;
+		arr[i].idx = in[i].idx;		
 		arr[i].playtime = in[i].playtime;
-		arr[i].genre = in[i].genre;
+		arr[i].genre = in[i].genre;	
+		list_tmp = &list[i];
+		list_tmp->dat = &arr[i];
 	}
 	return ret;
 }
@@ -178,21 +178,25 @@ int show_arr(dat_t* arr, int N) {
 
 int make_play_list(dat_t* arr, int N) {
 	int ret = 0;
+	list_t* target = 0;
 	for (int i = 0; i < N; i++) {
 		dat_t* dat = &arr[i];
-		list_add_tail(&play_head, &(dat->play_list));
+		target = &list[dat->idx];
+		list_add_tail(&play_head, &(target->play_list));
 	}
 	return ret;
 }
 
 int make_gen_list(dat_t* arr, int N) {
 	int ret = 0;
+	list_t* target = 0;
 	for (int i = 0; i < N; i++) {
 		dat_t* dat = &arr[i];
 		//std::cout << "dat = " << dat << std::endl;
 		int gen_head_idx = dat->genre;
+		target = &list[dat->idx];
 		//std::cout << "gen_head_idx = " << gen_head_idx  << ", idx = " << dat->idx << ", playtime = " << dat->playtime << std::endl;		
-		list_add_tail(&gen_head[gen_head_idx], &(dat->gen_list));
+		list_add_tail(&gen_head[gen_head_idx], &(target->gen_list));
 	}
 	return ret;
 }
@@ -201,10 +205,12 @@ int for_each_list_safe(list_head* head, int list_idx) {
 	int ret = 0;
 	list_head* tmp = 0;
 	list_head* n = 0;
+	list_t* target = 0;
 	int cnt = 0;
 	std::cout << "for_each_list_safe, list_idx" << list_idx << std::endl;
-	for (tmp = head->next, n = tmp->next; tmp != head; tmp = n, n = n->next) {		
-		dat_t* arr = reinterpret_cast<dat_t*>((char*)tmp - (char*)offsetoflist[list_idx]);
+	for (tmp = head->next, n = tmp->next; tmp != head; tmp = n, n = n->next) {
+		target = reinterpret_cast<list_t*>((char*)tmp - (char*)offsetoflist[list_idx]);
+		dat_t* arr = target->dat;
 		std::cout << "arr[" << cnt << "] = " << arr->idx << "/" << arr->playtime << "/" << arr->genre << std::endl;
 		cnt++;
 	}
@@ -219,7 +225,7 @@ int binarytry(int target) {
 	int m = 0;
 
 	while (s <= e) {
-		m = (s + e) / 2;		
+		m = (s + e) / 2;
 		if (target < arr[m].idx) {
 			std::cout << "1m = " << m << std::endl;
 			if (m == 0) return m;
@@ -256,60 +262,6 @@ int update_playtime(int id, int playtime) {
 			break;
 		}
 	}
-
-	return ret;
-}
-
-int get_cnt_list(list_head* head) {
-	int ret = 0;
-	list_head* tmp = 0;
-	list_head* n = 0;
-	int cnt = 0;
-	for (tmp = head->next, n = tmp->next; tmp != head; tmp = n, n = n->next) {
-		cnt++;
-	}
-	ret = cnt;
-	return ret;
-}
-
-int check_play_list(dat_t* target, dat_t* arr) {
-	int ret = 0;
-	if (target->playtime > arr->playtime) {
-		ret = 1;
-	}
-	else if (target->playtime == arr->playtime) {
-		if (target->idx < arr->idx) {
-			ret = 1;
-		}
-	}
-	return ret;
-}
-
-list_head* find_pos(dat_t* target) {
-	list_head* ret = &play_head;
-	list_head* head = &play_head;
-	list_head* tmp = 0;
-	list_head* n = 0;
-	if (get_cnt_list(&play_head) == 0) return ret;	
-	for (tmp = head->next, n = tmp->next; tmp != head; tmp = n, n = n->next) {		
-		dat_t* arr = reinterpret_cast<dat_t*>((char*)tmp - (char*)offsetoflist[0]);
-		if (check_play_list(target, arr) == 1) {
-			ret = tmp->prev;
-			break;
-		}
-		ret = tmp;
-	}
-	return ret;
-}
-
-int make_sort_play_list(dat_t* arr, int N) {
-	int ret = 0;
-
-	for (int i = 0; i < N; i++) {
-		dat_t* target = &arr[i];
-		list_head* pos = find_pos(target);
-		list_add(pos, &(target->play_list));
-	}
 	return ret;
 }
 
@@ -318,43 +270,45 @@ int main() {
 	std::cout << "start play_gen1" << std::endl;
 	clock_t start, end;
 
-	N = MAX_NUM;
-	start = clock();
-	gen_input(N);
-	end = clock();
-	std::cout << "gen_input, elapsed time = " << end - start << std::endl;
+#if 1
 	//alloc_cur = 0;
 	list_init(&play_head);
 	for (int i = 0; i < N; i++) {
 		list_init(&gen_head[i]);
-	}	
-	
+	}
+#endif
+
+	N = MAX_NUM;
+	start = clock();
+	gen_input(N);	
+	end = clock();
+	std::cout << "gen_input, elapsed time = " << end - start << std::endl;	
+#if 1
 	start = clock();
 	init_data(in, arr, N);
 	end = clock();
 	std::cout << "init_data, elapsed time = " << end - start << std::endl;
-	//show_arr(arr, N);
-#if 1
+	show_arr(arr, N);
+#endif
 	start = clock();
-	merge_sort_play(arr, 0, N-1);
+	merge_sort_play(arr, 0, N - 1);
 	end = clock();
 	std::cout << "merge_sort_play, elapsed time = " << end - start << std::endl;
-	//show_arr(arr, N);
+	show_arr(arr, N);
 
 	start = clock();
 	make_play_list(arr, N);
-	//for_each_list_safe(&play_head, play_list_enum);
+	for_each_list_safe(&play_head, play_list_enum);
 	end = clock();
 	std::cout << "make_play_list, elapsed time = " << end - start << std::endl;
-#else
-	start = clock();
-	//merge_sort_gen(arr, 0, N - 1);
-	make_sort_play_list(arr, N);
-	end = clock();
-	std::cout << "merge_sort_gen, elapsed time = " << e
-#endif	
-
 #if 0
+
+	start = clock();
+	merge_sort_gen(arr, 0, N - 1);
+	end = clock();
+	std::cout << "merge_sort_gen, elapsed time = " << end - start << std::endl;
+	show_arr(arr, N);
+
 	start = clock();
 	make_gen_list(arr, N);
 	end = clock();
