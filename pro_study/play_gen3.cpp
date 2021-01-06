@@ -31,10 +31,6 @@ struct arr_t {
 	dat_t* data;
 };
 
-
-
-
-
 enum {
 	play_list_enum = 0,
 	gen_list_enum = 1,
