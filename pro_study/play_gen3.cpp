@@ -15,11 +15,25 @@ struct dat_t {
 	int genre;
 }in[MAX_NUM], arr[MAX_NUM], tmp[MAX_NUM];
 
-struct list_t {
+struct play_t {
 	list_head play_list;
+	dat_t* dat;
+}play;
+
+struct gen_t {
 	list_head gen_list;
 	dat_t* dat;
-}list[MAX_NUM];
+}gen;
+
+struct arr_t {
+	play_t* play_ptr;
+	gen_t* list_ptr;
+	dat_t* data;
+};
+
+
+
+
 
 enum {
 	play_list_enum = 0,
@@ -301,8 +315,8 @@ int main() {
 	for_each_list_safe(&play_head, play_list_enum);
 	end = clock();
 	std::cout << "make_play_list, elapsed time = " << end - start << std::endl;
-#if 0
 
+#if 0
 	start = clock();
 	merge_sort_gen(arr, 0, N - 1);
 	end = clock();
