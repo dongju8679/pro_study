@@ -59,11 +59,12 @@ void list_del(list_head* list) {
 
 int gen_input(int N) {
 	int ret = 0;
-	std::cout << "start gen_input" << std::endl;
+	std::cout << "start gen_input1" << std::endl;
 	for (int i = 0; i < N; i++) {
 		in[i].idx = i;
 		in[i].playtime = rand() % 30;
 		in[i].genre = rand() % 6;		
+		std::cout << "in idx = " << in[i].idx << ", playtime = " << in[i].playtime << ", genre = " << in[i].genre << std::endl;
 	}
 	return ret;
 }

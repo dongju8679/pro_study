@@ -90,5 +90,14 @@
     <ClCompile Include="play_gen3.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="play_gen5.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="play_gen7.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="dice1.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
