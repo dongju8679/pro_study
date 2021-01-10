@@ -25,6 +25,11 @@ struct section_t {
 	book_t* pb;
 }section[MAX_BOOK];
 
+void list_init(list_head* head) {
+	head->next = head;
+	head->prev = head;
+}
+
 void list_add(list_head* head, list_head* list) {
 	list->prev = head;
 	list->next = head->next;
@@ -57,17 +62,80 @@ void for_each_list_safe(list_head* head) {
 
 void init_data(int nsection) {
 	for (int i = 0; i < nsection; i++) {
-
-
+		list_init(&section_head[i]);
 	}
+	for (int i = 0; i < MAX_NAME; i++) {
+		list_init(&name_head[i]);
+	}
+	for (int i = 0; i < MAX_TYPE; i++) {
+		list_init(&type_head[i]);
+	}
+}
+int add_book(char *mName, int mNumType, char Types[MAX_NUMTYPE][MAX_TYPE_LEN], int mSection) {
+	int ret = 0;
+
+	std::cout << "mName = " << mName << std::endl;
+
+	return ret;
 }
 
 int main() {
 	int ret = 0;
 	int N_Section = 3;
 	init_data(N_Section);
+	char tName[MAX_NAME_LEN] = "wiedki";
+	char tTypes[MAX_NUMTYPE][MAX_TYPE_LEN] = { "ro", "hi" };
+	add_book(tName, 2, tTypes, 1);
 
 	std::cout << "start book_section_type_name1" << std::endl;
 
+	return ret;
+}
+
+int my_strcpy(char* dst, char* src) {
+	int ret = 0;
+	int i = 0;
+	while (1) {
+		if (src[i] == '\0') {
+			break;
+		}
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	ret = i;
+	return ret;
+}
+
+int my_strcmp(char* str1, char* str2) {
+	int ret = 0;
+	int i = 0;
+	while (1) {
+		if (str1[i] == '\0' || str2[i] == '\0') {
+			break;
+		}
+		if (str1[i] != str2[i]) {
+			ret = str1[i] - str2[i];
+			break;
+
+		}
+		else if (str1[i] == str2[i]) {
+			ret = 0;
+		}
+		i++;
+	}
+	return ret;
+}
+
+int my_strlen(char* str) {
+	int ret = 0;
+	int i = 0;
+	while (1) {
+		if (str[i] == '\0') {
+			break;
+		}
+		i++;
+	}
+	ret = i;
 	return ret;
 }
