@@ -7,23 +7,67 @@
 #define MAX_NAME (50000)
 #define MAX_TYPE (500)
 #define MAX_BOOK (50000)
+#define MOD_NAME (MAX_NAME - 1)
+#define MOD_TYPE (MAX_TYPE - 1)
+int my_strcpy(char* dst, char* src);
+int my_strlen(char* str);
+int my_strcmp(char* str1, char* str2);
 
+int N;
 struct book_t {
 	char mName[MAX_NAME_LEN];
 	int mNumType;
 	char mTypes[MAX_NUMTYPE][MAX_TYPE_LEN];
 	int mSection;
 }book[MAX_BOOK];
+int book_cur;
+book_t* book_alloc() {
+	return &book[book_cur++];
+}
 
 struct list_head {
 	list_head* prev;
 	list_head* next;
 }section_head[MAX_SECTION], name_head[MAX_NAME], type_head[MAX_TYPE];
 
-struct section_t {
-	list_head section_list;
+struct list_t {
+	list_head list_entry;
+	unsigned int nhash;
+	unsigned int thash;
 	book_t* pb;
-}section[MAX_BOOK];
+}section[MAX_BOOK], name[MAX_NAME], type[MAX_TYPE * 5];
+int section_cur, name_cur, type_cur;
+list_t* section_alloc() {
+	return &section[section_cur++];
+}
+list_t* name_alloc() {
+	return &name[name_cur++];
+}
+list_t* type_alloc() {
+	return &type[type_cur++];
+}
+
+unsigned int name_hash(const char* str)
+{
+	unsigned long hash = 5381;
+	int c;
+	while (c = *str++)
+	{
+		hash = ((((hash << 5) + hash) + c ) + MOD_NAME) & MOD_NAME;
+	}
+	return hash;
+}
+
+unsigned int type_hash(const char* str)
+{
+	unsigned long hash = 5381;
+	int c;
+	while (c = *str++)
+	{
+		hash = ((((hash << 5) + hash) + c) + MOD_TYPE) & MOD_TYPE;
+	}
+	return hash;
+}
 
 void list_init(list_head* head) {
 	head->next = head;
@@ -61,6 +105,10 @@ void for_each_list_safe(list_head* head) {
 }
 
 void init_data(int nsection) {
+	int N = nsection;
+	section_cur = 0;
+	name_cur = 0;
+	type_cur = 0;
 	for (int i = 0; i < nsection; i++) {
 		list_init(&section_head[i]);
 	}
@@ -74,7 +122,23 @@ void init_data(int nsection) {
 int add_book(char *mName, int mNumType, char Types[MAX_NUMTYPE][MAX_TYPE_LEN], int mSection) {
 	int ret = 0;
 
-	std::cout << "mName = " << mName << std::endl;
+	std::cout << "add_book, mName = " << mName << std::endl;
+
+	book_t* b = book_alloc();
+	my_strcpy(b->mName, mName);
+	b->mNumType = mNumType;
+	for (int i = 0; i < mNumType; i++) {
+		my_strcpy(b->mTypes[i], Types[i]);
+	}
+	b->mSection = mSection;
+	list_add(&section_head[mSection]);
+	
+	for (int i = 0; i < mNumType; i++) {
+		list_t* t = type_alloc();
+		t->pb = b;
+		unsigned int typehash = type_hash(Types[i]);
+		list_add();
+	}
 
 	return ret;
 }
