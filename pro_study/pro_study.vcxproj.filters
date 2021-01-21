@@ -105,5 +105,8 @@
     <ClCompile Include="booksection2.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="list_test001.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
