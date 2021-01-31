@@ -15,11 +15,13 @@ int tot = 0;
 
 
 int possible_way(int y, int x) {
-	std::cout << "possible_way, cnt = " << cnt << std::endl;
+	std::cout << "start possible_way, cnt = " << cnt << ", y = " << y << ", x = " << x << std::endl;
 	if (cnt == 0) {
 		return 1;
 	}
-	//std::cout << "queen.y = " << queen[0].y << ", queen.x = " << queen[0].x << std::endl;
+	for (int i = 0; i < cnt; i++) {
+		std::cout << "check, queen.y = " << queen[i].y << ", queen.x = " << queen[i].x << std::endl;
+	}
 	
 	int ret = 1;
 	pos_t cur;
@@ -49,11 +51,10 @@ int possible_way(int y, int x) {
 		if (cur.y < 1 or cur.x < 1) {
 			break;
 		}
-		for (int k = 0; k < cnt; k++) {
-			if (k == cnt - 1) {
-				continue;
-			}
+		for (int k = 0; k < cnt; k++) {			
+			//std::cout << "compare, cur.y = " << cur.y << ", q.y = " << queen[k].y << ", cur.x = " << cur.x << ", q.x = " << queen[k].x << std::endl;
 			if (cur.y == queen[k].y && cur.x == queen[k].x) {
+				
 				return 0;
 			}
 		}
@@ -68,10 +69,7 @@ int possible_way(int y, int x) {
 		if (cur.y < 1 or cur.x < 1) {
 			break;
 		}
-		for (int k = 0; k < cnt; k++) {
-			if (k == cnt - 1) {
-				continue;
-			}
+		for (int k = 0; k < cnt; k++) {			
 			if (cur.y == queen[k].y && cur.x == queen[k].x) {
 				return 0;
 			}
@@ -87,10 +85,7 @@ int possible_way(int y, int x) {
 		if (cur.y < 1 or cur.x < 1) {
 			break;
 		}
-		for (int k = 0; k < cnt; k++) {
-			if (k == cnt - 1) {
-				continue;
-			}
+		for (int k = 0; k < cnt; k++) {			
 			if (cur.y == queen[k].y && cur.x == queen[k].x) {
 				return 0;
 			}
@@ -106,10 +101,7 @@ int possible_way(int y, int x) {
 		if (cur.y < 1 or cur.x < 1) {
 			break;
 		}
-		for (int k = 0; k < cnt; k++) {
-			if (k == cnt - 1) {
-				continue;
-			}
+		for (int k = 0; k < cnt; k++) {			
 			if (cur.y == queen[k].y && cur.x == queen[k].x) {
 				return 0;
 			}
@@ -126,10 +118,7 @@ int possible_way(int y, int x) {
 		if (cur.y < 1 or cur.x < 1) {
 			break;
 		}
-		for (int k = 0; k < cnt; k++) {
-			if (k == cnt - 1) {
-				continue;
-			}
+		for (int k = 0; k < cnt; k++) {			
 			if (cur.y == queen[k].y && cur.x == queen[k].x) {
 				return 0;
 			}
@@ -160,11 +149,11 @@ int nqueen(pos_t pos) {
 	
 	for (int j = pos.y; j <= N; j++) {
 		for (int i = pos.x; i <= N; i++) {
-			//std::cout << "j = " << j << ", i = " << i << std::endl;
+			std::cout << "pos, j = " << j << ", i = " << i << std::endl;
 			//std::cout << "cnt = " << cnt << std::endl;				
 			if (possible_way(j, i) == 0)
 			{
-				std::cout << "possible, y = " << j << ", x = " << i << std::endl;
+				std::cout << "possible, continue, y = " << j << ", x = " << i << std::endl;
 				continue;
 			}			
 			queen[cnt].y = j;
@@ -180,9 +169,7 @@ int nqueen(pos_t pos) {
 			
 			std::cout << "before nqeen" << std::endl;
 			nqueen(new_pos);
-			cnt--;
-			//queen[cnt].y = 0;
-			//queen[cnt].x = 0;
+			cnt--;			
 		}		
 	}
 	ret = -1;
