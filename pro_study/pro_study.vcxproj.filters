@@ -126,5 +126,11 @@
     <ClCompile Include="nqueen_t0.cpp">
       <Filter>소스 파일\intermediate</Filter>
     </ClCompile>
+    <ClCompile Include="guseul_t0.cpp">
+      <Filter>소스 파일\intermediate</Filter>
+    </ClCompile>
+    <ClCompile Include="red_car_t0.cpp">
+      <Filter>소스 파일\intermediate</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
