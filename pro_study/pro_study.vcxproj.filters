@@ -16,6 +16,12 @@
     <Filter Include="소스 파일\intermediate">
       <UniqueIdentifier>{e8ff3d15-c0ae-4daf-b2ca-03154d979b96}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\performace">
+      <UniqueIdentifier>{eda0abf2-3732-4bbe-b5c7-636f24da5d31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\heap_t09">
+      <UniqueIdentifier>{95278425-c463-4e99-aa7f-35e0abb9836e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="msort1.cpp">
@@ -66,22 +72,10 @@
     <ClCompile Include="play_genre1.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="binarysearch0.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="hash_djb_t0.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="insertion_sort0.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="sort_with_linkedlist1.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="binarysearch2.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="sort_compare1.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="hash_51.cpp">
@@ -114,9 +108,6 @@
     <ClCompile Include="dice_t0.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="sort_insert_compare1.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="priority_queue_t0.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -132,5 +123,34 @@
     <ClCompile Include="red_car_t0.cpp">
       <Filter>소스 파일\intermediate</Filter>
     </ClCompile>
+    <ClCompile Include="sort_insert_compare1.cpp">
+      <Filter>소스 파일\performace</Filter>
+    </ClCompile>
+    <ClCompile Include="sort_with_linkedlist1.cpp">
+      <Filter>소스 파일\performace</Filter>
+    </ClCompile>
+    <ClCompile Include="sort_compare1.cpp">
+      <Filter>소스 파일\performace</Filter>
+    </ClCompile>
+    <ClCompile Include="binarysearch0.cpp">
+      <Filter>소스 파일\performace</Filter>
+    </ClCompile>
+    <ClCompile Include="binarysearch2.cpp">
+      <Filter>소스 파일\performace</Filter>
+    </ClCompile>
+    <ClCompile Include="heap_t091.cpp">
+      <Filter>소스 파일\heap_t09</Filter>
+    </ClCompile>
+    <ClCompile Include="heap_basic_t0.cpp">
+      <Filter>소스 파일\heap_t09</Filter>
+    </ClCompile>
+    <ClCompile Include="heap_t2.cpp">
+      <Filter>소스 파일\heap_t09</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="input.txt">
+      <Filter>소스 파일\heap_t09</Filter>
+    </Text>
   </ItemGroup>
 </Project>
