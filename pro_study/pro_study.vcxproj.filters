@@ -22,6 +22,9 @@
     <Filter Include="소스 파일\heap_t09">
       <UniqueIdentifier>{95278425-c463-4e99-aa7f-35e0abb9836e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\cpp_study">
+      <UniqueIdentifier>{5e8d7a64-b7e5-4e05-b360-416f61c4a1b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="msort1.cpp">
@@ -146,6 +149,12 @@
     </ClCompile>
     <ClCompile Include="heap_t2.cpp">
       <Filter>소스 파일\heap_t09</Filter>
+    </ClCompile>
+    <ClCompile Include="rr01.cpp">
+      <Filter>소스 파일\heap_t09</Filter>
+    </ClCompile>
+    <ClCompile Include="map_t3.cpp">
+      <Filter>소스 파일\cpp_study</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
