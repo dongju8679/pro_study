@@ -25,6 +25,9 @@
     <Filter Include="소스 파일\cpp_study">
       <UniqueIdentifier>{5e8d7a64-b7e5-4e05-b360-416f61c4a1b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\hash_gg0">
+      <UniqueIdentifier>{eb7cbc80-4fbc-474e-a9e1-a5ba36c2e785}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="msort1.cpp">
@@ -155,6 +158,12 @@
     </ClCompile>
     <ClCompile Include="map_t3.cpp">
       <Filter>소스 파일\cpp_study</Filter>
+    </ClCompile>
+    <ClCompile Include="prio_t0.cpp">
+      <Filter>소스 파일\heap_t09</Filter>
+    </ClCompile>
+    <ClCompile Include="hash_tt01.cpp">
+      <Filter>소스 파일\hash_gg0</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
