@@ -165,6 +165,12 @@
     <ClCompile Include="hash_tt01.cpp">
       <Filter>소스 파일\hash_gg0</Filter>
     </ClCompile>
+    <ClCompile Include="bread_0227.cpp">
+      <Filter>소스 파일\hash_gg0</Filter>
+    </ClCompile>
+    <ClCompile Include="heap_tt3.cpp">
+      <Filter>소스 파일\hash_gg0</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="input.txt">
