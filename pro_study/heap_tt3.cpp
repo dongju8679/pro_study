@@ -1,8 +1,17 @@
+#include <iostream>
+#define MAX_SIZE (100)
+#define MAX_STR (20)
+#define MAX_IN (1<<10)
 
-#define MAX_SIZE 100
-
+int N;
 int heap[MAX_SIZE];
 int heapSize = 0;
+
+struct in_t {
+	int idx;
+	int val;
+	char name[MAX_STR];
+}in[MAX_IN];
 
 void heapInit(void)
 {
@@ -72,33 +81,36 @@ int heapPop(int* value)
 	return 1;
 }
 
+int gen_input() {
+	int ret = 0;
+
+	for (int i = 0; i < N; i++) {
+		in[i].idx = i;
+		in[i].val = rand() % 30;
+		std::cout << "in[i].val = " << in[i].val << std::endl;
+	}
+
+	return ret;
+}
+
 int main(int argc, char* argv[])
 {
-	int T, N;
+	N = 10;
+	gen_input();
 
-	scanf("%d", &T);
+	heapInit();
 
-	for (int test_case = 1; test_case <= T; test_case++)
-	{
-		scanf("%d", &N);
-		heapInit();
-		for (int i = 0; i < N; i++)
-		{
-			int value;
-			scanf("%d", &value);
-			heapPush(value);
-		}
-
-		printf("#%d ", test_case);
-
-		for (int i = 0; i < N; i++)
-		{
-			int value;
-			heapPop(&value);
-			printf("%d ", value);
-		}
-		printf("\n");
+	for (int i = 0; i < N; i++) {
+		heapPush(in[i].val);
 	}
+
+	for (int i = 0; i < N; i++)
+	{
+		int value;
+		heapPop(&value);
+		printf("%d ", value);
+	}
+
 	return 0;
 }
 
