@@ -171,6 +171,9 @@
     <ClCompile Include="heap_tt3.cpp">
       <Filter>소스 파일\hash_gg0</Filter>
     </ClCompile>
+    <ClCompile Include="list_add_t10.cpp">
+      <Filter>소스 파일\hash_gg0</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="input.txt">

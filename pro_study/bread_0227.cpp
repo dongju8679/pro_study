@@ -1,4 +1,5 @@
 #include <iostream>
+
 #define MAX_IN (1<<20)
 #define MAX_STR (20)
 #define MAX_TABLE (1<<10)
@@ -276,15 +277,15 @@ int buySector() {
 
 int main() {
 	int ret = 0;	
-	clock_t start, end;
+	//clock_t start, end;
 	std::cout << "start bread_0227" << std::endl;
 	//srand((unsigned int)time(0));
 	N = 10;	
 	gen_init();
-	start = clock();
+	//start = clock();
 	init();
-	end = clock();
-	printf("init, elapsed time = %u\n", end - start);
+	//end = clock();
+	//printf("init, elapsed time = %u\n", end - start);
 	addBread(10, 91, init_data[0].bName, 3);	
 	addBread(20, 99, init_data[1].bName, 1);
 	addBread(30, 99, init_data[2].bName, 3);
