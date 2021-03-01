@@ -15,7 +15,9 @@ struct data_t {
 }data[MAX_DATA];
 
 struct in_t {
-
+	int idx;
+	int val;
+	char name[MAX_STR];
 }in[MAX_IN];
 
 struct list_head {
@@ -91,7 +93,10 @@ int gen_input() {
 	for (int i = 0; i < N; i++) {
 		in[i].idx = i;
 		in[i].val = rand() % 30;
-
+		for (int j = 0; j < MAX_STR; j++) {
+			in[i].name[j] = char(rand() % 26 + 97);
+		}
+		in[i].name[MAX_STR - 1] = '\0';
 	}
 
 	return ret;
